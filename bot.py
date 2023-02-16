@@ -34,10 +34,6 @@ if not SAFETY_CHECKER:
     img2imgPipe.safety_checker = dummy_checker
 def image_to_bytes(image):
     bio = BytesIO()
-    size = (125, 450)
-    crop_image = Image.open('/content/telegrambotv2/watermark.jpeg')
-    crop_image.thumbnail(size)
-    image.paste(crop_image, (0, 0))
     bio.name = 'image.jpeg'
     image.save(bio, 'JPEG')
     bio.seek(0)
