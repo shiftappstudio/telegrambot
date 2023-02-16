@@ -31,7 +31,7 @@ HEIGHT = int(os.getenv('HEIGHT', '512'))
 WIDTH = int(os.getenv('WIDTH', '512'))
 NUM_INFERENCE_STEPS = int(os.getenv('NUM_INFERENCE_STEPS', '50'))
 STRENTH = float(os.getenv('STRENTH', '0.75'))
-GUIDANCE_SCALE = float(os.getenv('GUIDANCE_SCALE', '2'))
+GUIDANCE_SCALE = float(os.getenv('GUIDANCE_SCALE', '5'))
 torch_dtype = torch.float16 if LOW_VRAM_MODE else None
 # load the text2img pipeline
 pipe = StableDiffusionPipeline.from_pretrained(MODEL_DATA, torch_dtype=torch_dtype, use_auth_token=USE_AUTH_TOKEN)
