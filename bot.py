@@ -133,11 +133,37 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if replied_message.photo is not None and len(replied_message.photo) > 0 and replied_message.caption is not None:
             photo_file = await replied_message.photo[-1].get_file()
             photo = await photo_file.download_as_bytearray()
-            prompt = replied_message.caption 
+            prompt = replied_message.caption
+            
+            #Defining the TimeStamp for the Object (Happen while loading the image)
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            today = date.today()
+
+            #Defining the Object
+            Object= {'Username': update.effective_user.username,
+                 'Prompt': update.message.text.replace("/mya",''),
+                 'Timestamp': str(today)+' '+str(current_time)}
+            doc_ref= db.collection(u'Request').document(Object['Timestamp'])
+            doc_ref.set(Object)
+            
             im, seed = generate_image(prompt, photo=photo)
             
         else:
             prompt = replied_message.text
+            
+            #Defining the TimeStamp for the Object (Happen while loading the image)
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            today = date.today()
+
+            #Defining the Object
+            Object= {'Username': update.effective_user.username,
+                 'Prompt': update.message.text.replace("/mya",''),
+                 'Timestamp': str(today)+' '+str(current_time)}
+            doc_ref= db.collection(u'Request').document(Object['Timestamp'])
+            doc_ref.set(Object)
+            
             im, seed = generate_image(prompt)
             
             
@@ -145,6 +171,18 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         photo_file = await query.message.photo[-1].get_file()
         photo = await photo_file.download_as_bytearray()
         prompt = replied_message.text if replied_message.text is not None else replied_message.caption
+        #Defining the TimeStamp for the Object (Happen while loading the image)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        today = date.today()
+
+        #Defining the Object
+        Object= {'Username': update.effective_user.username,
+             'Prompt': update.message.text.replace("/mya",''),
+             'Timestamp': str(today)+' '+str(current_time)}
+        doc_ref= db.collection(u'Request').document(Object['Timestamp'])
+        doc_ref.set(Object)
+        
         im, seed = generate_image(prompt, photo=photo)
      
     await context.bot.delete_message(chat_id=progress_msg.chat_id, message_id=progress_msg.message_id)
