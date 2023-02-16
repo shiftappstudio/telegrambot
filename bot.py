@@ -23,7 +23,7 @@ db = firestore.client()
 
 load_dotenv()
 TG_TOKEN = os.getenv('TG_TOKEN')
-MODEL_DATA = os.getenv('MODEL_DATA', 'nitrosocke/Nitro-Diffusion')
+MODEL_DATA = os.getenv('MODEL_DATA', 'Linaqruf/anything-v3.0')
 LOW_VRAM_MODE = (os.getenv('LOW_VRAM', 'true').lower() == 'true')
 USE_AUTH_TOKEN = (os.getenv('USE_AUTH_TOKEN', 'true').lower() == 'true')
 SAFETY_CHECKER = (os.getenv('SAFETY_CHECKER', 'true').lower() == 'true')
@@ -31,7 +31,7 @@ HEIGHT = int(os.getenv('HEIGHT', '512'))
 WIDTH = int(os.getenv('WIDTH', '512'))
 NUM_INFERENCE_STEPS = int(os.getenv('NUM_INFERENCE_STEPS', '50'))
 STRENTH = float(os.getenv('STRENTH', '0.75'))
-GUIDANCE_SCALE = float(os.getenv('GUIDANCE_SCALE', '7.5'))
+GUIDANCE_SCALE = float(os.getenv('GUIDANCE_SCALE', '10'))
 torch_dtype = torch.float16 if LOW_VRAM_MODE else None
 # load the text2img pipeline
 pipe = StableDiffusionPipeline.from_pretrained(MODEL_DATA, torch_dtype=torch_dtype, use_auth_token=USE_AUTH_TOKEN)
