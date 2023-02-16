@@ -66,7 +66,7 @@ def generate_image(prompt, seed=None, height=HEIGHT, width=WIDTH, num_inference_
             image = img2imgPipe(prompt=[prompt.replace("/mya",'')], negative_prompt=["poorly drawn, {wrong fingers}"],  init_image=init_image,
                                     generator=generator,
                                     strength=strength,
-                                    guidance_scale='3',
+                                    guidance_scale=guidance_scale,
                                     num_inference_steps=num_inference_steps)["images"][0]
     else:
         pipe.to("cuda")
