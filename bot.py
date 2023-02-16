@@ -8,6 +8,18 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CallbackQueryHandler, ContextTypes, MessageHandler,CommandHandler, filters
 from io import BytesIO
 import random
+import firebase_admin
+import pandas as pd
+from firebase_admin import credentials
+from firebase_admin import firestore
+from datetime import datetime, date
+
+# Use a service account.
+cred = credentials.Certificate('/content/telegrambot/firestore-37b0a-firebase-adminsdk-6jr4p-172e02d893.json')
+
+app = firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 load_dotenv()
 TG_TOKEN = os.getenv('TG_TOKEN')
@@ -45,6 +57,19 @@ def get_try_again_markup():
 def generate_image(prompt, seed=None, height=HEIGHT, width=WIDTH, num_inference_steps=NUM_INFERENCE_STEPS, strength=STRENTH, guidance_scale=GUIDANCE_SCALE, photo=None):
     seed = seed if seed is not None else random.randint(1, 10000)
     generator = torch.cuda.manual_seed_all(seed)
+    
+    #Defining the TimeStamp for the Object (Happen while loading the image)
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    today = date.today()
+
+    #Defining the Object
+    Object= {'Username': update.effective_user.username,
+        'Prompt': prompt,
+        'Timestamp': str(today)+' '+str(current_time)}
+    doc_ref= db.collection(u'Request').document(Object['Timestamp'])
+    doc_ref.set(Object)
+    
     if photo is not None:
         pipe.to("cpu")
         img2imgPipe.to("cuda")
