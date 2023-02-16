@@ -142,7 +142,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
             #Defining the Object
             Object= {'Username': update.effective_user.username,
-                 'Prompt': update.message.text.replace("/mya",''),
+                 'Prompt': replied_message.caption.replace("/mya",''),
                  'Timestamp': str(today)+' '+str(current_time)}
             doc_ref= db.collection(u'Request').document(Object['Timestamp'])
             doc_ref.set(Object)
@@ -159,7 +159,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
             #Defining the Object
             Object= {'Username': update.effective_user.username,
-                 'Prompt': update.message.text.replace("/mya",''),
+                 'Prompt': replied_message.text.replace("/mya",''),
                  'Timestamp': str(today)+' '+str(current_time)}
             doc_ref= db.collection(u'Request').document(Object['Timestamp'])
             doc_ref.set(Object)
@@ -178,7 +178,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
         #Defining the Object
         Object= {'Username': update.effective_user.username,
-             'Prompt': update.message.text.replace("/mya",''),
+             'Prompt': replied_message.text.replace("/mya",'') if replied_message.text is not None else replied_message.caption.replace("/mya",''),
              'Timestamp': str(today)+' '+str(current_time)}
         doc_ref= db.collection(u'Request').document(Object['Timestamp'])
         doc_ref.set(Object)
