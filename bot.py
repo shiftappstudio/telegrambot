@@ -91,7 +91,7 @@ async def generate_and_send_photo(update: Update, context: ContextTypes.DEFAULT_
 
     #Defining the Object
     Object= {'Username': update.effective_user.username,
-        'Prompt': prompt,
+        'Prompt': update.message.text.replace("/mya",''),
         'Timestamp': str(today)+' '+str(current_time)}
     doc_ref= db.collection(u'Request').document(Object['Timestamp'])
     doc_ref.set(Object)
@@ -115,7 +115,7 @@ async def generate_and_send_photo_from_photo(update: Update, context: ContextTyp
 
     #Defining the Object
     Object= {'Username': update.effective_user.username,
-        'Prompt': prompt,
+        'Prompt': update.message.caption,
         'Timestamp': str(today)+' '+str(current_time)}
     doc_ref= db.collection(u'Request').document(Object['Timestamp'])
     doc_ref.set(Object)
