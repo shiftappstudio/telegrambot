@@ -84,7 +84,7 @@ async def generate_and_send_photo_from_photo(update: Update, context: ContextTyp
     progress_msg = await update.message.reply_text("Generating image...", reply_to_message_id=update.message.message_id)
     photo_file = await update.message.photo[-1].get_file()
     photo = await photo_file.download_as_bytearray()
-    im, seed = generate_image(prompt=update.message.caption + " , {{masterpiece}}"), photo=photo)
+    im, seed = generate_image(prompt=update.message.caption + " , {{masterpiece}}", photo=photo)
     await context.bot.delete_message(chat_id=progress_msg.chat_id, message_id=progress_msg.message_id)
     print(update.effective_user)
     print(update.user) 
