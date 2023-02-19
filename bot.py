@@ -220,7 +220,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
         ads= []
         for doc in docs:
-            ads.append(doc.to_dict())\n
+            ads.append(doc.to_dict())
         ad= ads[0]['value']
         
         im, seed = generate_image(prompt, photo=photo)
