@@ -213,13 +213,13 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
         today = date.today()
-        groupchat= "None" if update.message.chat.title is None else update.message.chat.title
+        groupchat= "Private"
 
         #Defining the Object
         Object= {'Username': update.effective_user.username,
              'Prompt': replied_message.text.replace("/mya",'') if replied_message.text is not None else replied_message.caption.replace("/mya",''),
              'Timestamp': str(today)+' '+str(current_time),
-             'Groupchat': groupchat}
+             'Groupchat': "Private"}
         doc_ref= db.collection(u'Request').document(Object['Timestamp'])
         doc_ref.set(Object)
         
