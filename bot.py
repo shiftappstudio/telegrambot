@@ -15,7 +15,7 @@ from firebase_admin import firestore
 from datetime import datetime, date
 
 # Use a service account.
-cred = credentials.Certificate('/content/telegrambot/firestore-37b0a-firebase-adminsdk-6jr4p-172e02d893.json')
+cred = credentials.Certificate('/content/telegrambot/my-anime-ai-ee95b-firebase-adminsdk-dhmtm-a0c58a38cb.json')
 
 app = firebase_admin.initialize_app(cred)
 
@@ -172,17 +172,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                  'Groupchat': "Private"}
             doc_ref= db.collection(u'Request').document(Object['Timestamp'])
             doc_ref.set(Object)
-            
-            users_ref = db.collection(u'Ads')
-            docs = users_ref.stream()
-
-            ads= []
-            for doc in docs:
-                ads.append(doc.to_dict())
-            ad= ads[0]['value']
-            
-            
-            
+           
             im, seed = generate_image(prompt, photo=photo)
             
         else:
@@ -223,13 +213,6 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         doc_ref= db.collection(u'Request').document(Object['Timestamp'])
         doc_ref.set(Object)
         
-        users_ref = db.collection(u'Ads')
-        docs = users_ref.stream()
-
-        ads= []
-        for doc in docs:
-            ads.append(doc.to_dict())
-        ad= ads[0]['value']
         
         im, seed = generate_image(prompt, photo=photo)
         
